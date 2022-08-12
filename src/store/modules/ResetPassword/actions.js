@@ -47,10 +47,10 @@ export const resetPassword = (password, cpassword) => async (dispatch) =>{
                "password": `${password}`,
                "confirmPassword": `${cpassword}`
            };
-        const response = await API.post(`/api/v1/passwordreset?token=${token}`, jsonData);
+        const response = await API.post(`/api/v1/resetpassword?token=${token}`, jsonData);
         showSuccessMessage(response.data.message);
         dispatch(apiSuccess(response.data));
-        history.push('/login');
+        history.push('/');
         } catch (error) {
         if (error.response.data) {
             showErrorMessage(error.response.data.message);

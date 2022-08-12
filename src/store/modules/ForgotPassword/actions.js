@@ -8,11 +8,11 @@ FORGOT_PASSWORD_ERROR
 import API from '../../../utils/API';
 
 const showSuccessMessage = (message) => {
-    cogoToast.success(message, { hideAfter: 5, position: 'top-center' });
+    cogoToast.success(message, { hideAfter: 10, position: 'top-center' });
   };
 
   const showErrorMessage = (message) => {
-    cogoToast.error(message, { hideAfter: 5, position: 'top-center' });
+    cogoToast.error(message, { hideAfter: 10, position: 'top-center' });
   };
 
 const apiStart = () =>({
