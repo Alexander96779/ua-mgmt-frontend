@@ -1,10 +1,10 @@
 export default class AuthService {
     static setToken(token) {
-      localStorage.setItem('data-analytics_token', token);
+      localStorage.setItem('user_account_token', token);
     }
   
     static getToken() {
-      return localStorage.getItem('data-analytics_token');
+      return localStorage.getItem('user_account_token');
     }
   
     static setUsername(email) {
