@@ -9,7 +9,7 @@
 .btn{
     background-color: #4081d6 !important;
 }
-.error{
-    color: red;
-    font-size: 12px;
+
+.forgot-link{
+    float: left;
 }
