@@ -13,6 +13,7 @@
 
 # misc
 .DS_Store
+<<<<<<< HEAD
 .env
 
 npm-debug.log*
