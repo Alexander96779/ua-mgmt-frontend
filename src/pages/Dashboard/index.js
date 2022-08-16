@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import Navbar from '../../components/Navbar';
+import Sidebar from '../../components/Sidebar';
 
 class Dashboard extends Component {
     render () {
@@ -8,11 +10,8 @@ class Dashboard extends Component {
         <Helmet>
             <title>Dashboard</title>
         </Helmet>
-        <section>
-            <div className='container'>
-            <h1>THIS IS THE LANDING PAGE IN WORKS.......</h1>
-            </div>
-        </section>
+        <Navbar />
+        <Sidebar />
     </>
         )
     }
