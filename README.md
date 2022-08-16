@@ -15,6 +15,10 @@ Navigate to the project folder using any terminal with this commang:
 
 > `cd ua-mgmt-frontend`
 
+Go to the root directory and create a .env file, add your backend base url with the following name:
+
+> `REACT_APP_BASE_URL`
+
 Install all project dependencies using the command below:
 
 > `npm install`
