@@ -6,13 +6,25 @@ import Spinner from "react-bootstrap/esm/Spinner";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { addDocument } from '../../store/modules/Verification/actions';
+import { getUser } from '../../store/modules/ViewUser/actions';
+import './style.css';
 
 class Verification extends Component {
+
+    async componentDidMount() {
+        await this.props.displayUserInfo();
+        const { profileData } = this.props;
+        this.setState({
+            documents: profileData.data.payload.profile.verification ? profileData.data.payload.profile.verification: []
+        });
+    }
+
     constructor(props) {
         super(props);
         this.state = {
             nidPassport: '',
-            file: ''
+            file: '',
+            documents: []
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -55,14 +67,20 @@ class Verification extends Component {
             formData.append(key, value);
         });
        await onAddDocument(formData);
+       await this.props.displayUserInfo();
+       const { profileData } = this.props;
+       this.setState({
+           documents: profileData.data.payload.profile.verification ? profileData.data.payload.profile.verification: []
+       });
+
         } else {
         cogoToast.error('All fields are required', { hideAfter: 5, position: 'top-center' });
         }
       }
 
     render() {
-        const { nidPassport } = this.state;
-        const { document } = this.props;
+        const { nidPassport, documents } = this.state;
+        const { document, profileData } = this.props;
         return(
 <>
     <Helmet>
@@ -129,6 +147,35 @@ class Verification extends Component {
                 </div>
             </div>
             </div>
+            <div className="row">
+                <div className="col-md-9 mx-auto my-5">
+                {
+                    profileData.isLoading ?
+                <div className="text-center mt-5">
+                    <Spinner animation="border" variant="dark" />
+                </div>
+                  :
+                <div className="table-responsive">
+            <table className="table table-sm">
+            <thead>
+                <tr className="text-white d-flex table-header">
+                    <th className="col-4">NID/Passport</th>
+                    <th className="col-5">File name</th>
+                    <th className="col-3">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr className="d-flex">
+                    <td className="col-4">{documents.nidPassport}</td>
+                    <td className="col-5"><a href={`${process.env.REACT_APP_BASE_URL}/uploads/user/profiles/${documents.documentUrl}`} target="_blank" rel="noopener noreferrer">{documents.documentUrl}</a></td>
+                    <td className="col-3">{documents.status}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+                }
+                </div>
+            </div>
             </div>
         </section>
 </>
@@ -138,10 +185,12 @@ class Verification extends Component {
 
 const mapStateToProps = (state) =>({
     document: state.addNewDocument,
+    profileData: state.getUserInfo,
 });
 
 const mapDispatchToProps = (dispatch) =>({
     onAddDocument: (data) =>dispatch(addDocument(data)),
+    displayUserInfo: () => dispatch(getUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps) (Verification);
