@@ -116,7 +116,7 @@ class Profile extends Component {
 
     render(){
         const { firstName, lastName, dob, nationality, gender, maritalStatus, age, 
-            imageUrl, vStatus, file } = this.state;
+            imageUrl, vStatus } = this.state;
         const { profile, profileData } = this.props;
         return(
     <>
